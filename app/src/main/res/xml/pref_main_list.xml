@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:summary="@string/settings"
+    android:title="@string/settings">
+    <EditTextPreference
+        android:title="Username"
+        android:textSize="14dp"
+        android:summary="Set your username"
+        android:key="pref_username"
+    />
+
+    <EditTextPreference
+        android:title="Email"
+        android:textSize="14dp"
+        android:summary="Set your email"
+        android:key="pref_email"
+        />
+</PreferenceScreen>

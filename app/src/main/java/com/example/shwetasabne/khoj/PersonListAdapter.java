@@ -12,10 +12,17 @@ import android.widget.TextView;
 public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.PersonListAdapterViewHolder> {
 
     private static final String TAG = "PersonListAdapter";
+
     private String[] mPersonListData;
 
-    public PersonListAdapter() {
+    private final PersonListAdapterClickHandler mClickHandler;
 
+    public interface PersonListAdapterClickHandler {
+        void onClick(String currentPerson);
+    }
+
+    public PersonListAdapter(PersonListAdapterClickHandler clickHandler) {
+        mClickHandler = clickHandler;
     }
 
     public PersonListAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
@@ -52,7 +59,7 @@ public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.Pe
     }
 
 
-    public class PersonListAdapterViewHolder extends RecyclerView.ViewHolder {
+    public class PersonListAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public final TextView mSinglePersonDataTextView;
         public final TextView mSinglePersonDataInfoView;
@@ -62,7 +69,13 @@ public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.Pe
             Log.i(TAG, "PersonListAdapterViewHolder... called..");
             mSinglePersonDataTextView = (TextView) itemView.findViewById(R.id.tv_person_data);
             mSinglePersonDataInfoView = (TextView) itemView.findViewById(R.id.tv_person_info);
+            itemView.setOnClickListener(this);
         }
 
+        public void onClick(View v) {
+            int adapterPosition = getAdapterPosition();
+            String currentPersonData = mPersonListData[adapterPosition];
+            mClickHandler.onClick(currentPersonData);
+        }
     }
 }
